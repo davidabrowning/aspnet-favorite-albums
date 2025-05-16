@@ -1,4 +1,5 @@
 ﻿using ASPNETFavoriteAlbums.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASPNETFavoriteAlbums.Data
 {
@@ -24,12 +25,12 @@ namespace ASPNETFavoriteAlbums.Data
 
         public IEnumerable<Album> GetAll()
         {
-            return _favoriteAlbumsDbContext.Albums;
+            return _favoriteAlbumsDbContext.Albums.Include(a => a.Tags);
         }
 
         public Album GetById(int id)
         {
-            return _favoriteAlbumsDbContext.Albums.Where(a => a.Id == id).FirstOrDefault();
+            return _favoriteAlbumsDbContext.Albums.Where(a => a.Id == id).Include(a => a.Tags).FirstOrDefault();
         }
 
         public void Update(Album album)
