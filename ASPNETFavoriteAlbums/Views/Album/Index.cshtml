@@ -1,4 +1,4 @@
-﻿@model IEnumerable<ASPNETFavoriteAlbums.Models.Album>
+﻿@model ASPNETFavoriteAlbums.ViewModels.AlbumIndexViewModel
 
 @{
     ViewData["Title"] = "Index";
@@ -7,22 +7,40 @@
 <h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Create new album</a>
+</p>
+<p>
+    @foreach (Tag tag in Model.Tags)
+    {
+        @tag.Name;
+        <br />
+    }
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Name
             </th>
-            <th></th>
+            <th>
+                Tags
+            </th>
+            <th>
+                Modify
+            </th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
+        @foreach (var item in Model.Albums) {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @foreach (Tag tag in item.Tags)
+                    {
+                        @tag.Name;
+                    }
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |

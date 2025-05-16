@@ -1,5 +1,6 @@
 ﻿using ASPNETFavoriteAlbums.Data;
 using ASPNETFavoriteAlbums.Models;
+using ASPNETFavoriteAlbums.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,14 +9,21 @@ namespace ASPNETFavoriteAlbums.Controllers
     public class AlbumController : Controller
     {
         private readonly IAlbum _albumRepository;
-        public AlbumController(IAlbum albumRepository)
+        private readonly ITag _tagRepository;
+        public AlbumController(IAlbum albumRepository, ITag tagRepository)
         {
             _albumRepository = albumRepository;
+            _tagRepository = tagRepository;
         }
         // GET: AlbumController
         public ActionResult Index()
         {
-            return View(_albumRepository.GetAll());
+            AlbumIndexViewModel albumIndexViewModel = new()
+            {
+                Albums = _albumRepository.GetAll(),
+                Tags = _tagRepository.GetAll()
+            };
+            return View(albumIndexViewModel);
         }
 
         // GET: AlbumController/Details/5
