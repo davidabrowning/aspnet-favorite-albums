@@ -6,17 +6,26 @@
 $(".tag-reset-button").click(function () {
     showAllAlbumRows();
 });
+
 $(".tag-button").click(function () {
     showAllAlbumRows();
     let tagId = $(this).val();
-    $(".album-row").each(function () {
-        let $row = $(this);
-        if ($row.find(".tag-" + tagId).length == 0) {
-            $row.addClass("d-none");
-        }
-    });
+    hideAlbumRowsWithoutTagId(tagId);
 });
 
 function showAllAlbumRows() {
     $(".album-row").removeClass("d-none");
+}
+
+function hideAlbumRowsWithoutTagId(tagId) {
+    $(".album-row").each(function () {
+        let row = $(this);
+        if (rowDoesNotContainTagId(row, tagId)) {
+            row.addClass("d-none");
+        }
+    });
+}
+
+function rowDoesNotContainTagId(row, tagId) {
+    return row.find(".tag-" + tagId).length == 0;
 }
