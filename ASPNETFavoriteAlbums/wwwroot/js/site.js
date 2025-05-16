@@ -3,15 +3,26 @@
 
 // Write your JavaScript code.
 
-$(".tag-reset-button").click(function () {
-    showAllAlbumRows();
-});
+addListeners();
 
-$(".tag-button").click(function () {
-    showAllAlbumRows();
-    let tagId = $(this).val();
-    hideAlbumRowsWithoutTagId(tagId);
-});
+function addListeners() {
+    addResetTagListener();
+    addFilterByTagListener();
+}
+
+function addResetTagListener() {
+    $(".tag-reset-button").click(function () {
+        showAllAlbumRows();
+    });
+}
+
+function addFilterByTagListener() {
+    $(".tag-button").click(function () {
+        showAllAlbumRows();
+        let tagId = $(this).val();
+        hideAlbumRowsWithoutTagId(tagId);
+    });
+}
 
 function showAllAlbumRows() {
     $(".album-row").removeClass("d-none");
