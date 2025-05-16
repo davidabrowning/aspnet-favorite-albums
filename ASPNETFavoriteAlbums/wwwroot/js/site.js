@@ -4,10 +4,10 @@
 // Write your JavaScript code.
 
 $(".tag-reset-button").click(function () {
-    $(".album-row").removeClass("d-none");
+    showAllAlbumRows();
 });
 $(".tag-button").click(function () {
-    $(".album-row").removeClass("d-none");
+    showAllAlbumRows();
     let tagId = $(this).val();
     $(".album-row").each(function () {
         let $row = $(this);
@@ -16,3 +16,7 @@ $(".tag-button").click(function () {
         }
     });
 });
+
+function showAllAlbumRows() {
+    $(".album-row").removeClass("d-none");
+}
