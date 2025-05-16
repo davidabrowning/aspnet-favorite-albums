@@ -60,18 +60,40 @@ namespace ASPNETFavoriteAlbums.Controllers
         // GET: AlbumController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View(_albumRepository.GetById(id));
+            AlbumEditViewModel albumEditViewModel = new()
+            {
+                Album = _albumRepository.GetById(id),
+                AllTags = _tagRepository.GetAll()
+            };
+            return View(albumEditViewModel);
         }
 
         // POST: AlbumController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Album album)
+        public ActionResult Edit(AlbumEditViewModel albumEditViewModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    Album formAlbum = albumEditViewModel.Album;
+                    Album album = _albumRepository.GetById(formAlbum.Id);
+                    album.Name = formAlbum.Name;
+                    IEnumerable<Tag> allTags = _tagRepository.GetAll().ToList();
+                    IEnumerable<int> selectedTagIds = albumEditViewModel.SelectedTagIds.ToList();
+                    IEnumerable<Tag> selectedTags = allTags.Where(t => selectedTagIds.Contains(t.Id)).ToList();
+                    IEnumerable<Tag> oldTags = album.Tags.ToList();
+                    IEnumerable<Tag> tagsToAdd = selectedTags.Except(oldTags).ToList();
+                    IEnumerable<Tag> tagsToRemove = oldTags.Except(selectedTags).ToList();
+                    foreach (Tag tag in tagsToAdd)
+                    {
+                        album.Tags.Add(tag);
+                    }
+                    foreach (Tag tag in tagsToRemove)
+                    {
+                        album.Tags.Remove(tag);
+                    }
                     _albumRepository.Update(album);
                 }
                 return RedirectToAction(nameof(Index));
