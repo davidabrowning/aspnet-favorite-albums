@@ -4,12 +4,8 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
 <p>
-    <a class="btn btn-primary" asp-action="Create">Create new album</a>
-</p>
-<p>
+    <a class="btn btn-primary" asp-action="Create">Add new album</a>
     @foreach (Tag tag in Model.Tags)
     {
         <button type="button" value="@tag.Id" class="btn btn-secondary tag-button tag-@tag.Id">
@@ -17,7 +13,7 @@
         </button>
     }
     <button type="button" class="btn btn-secondary tag-reset-button">
-        all
+        show all
     </button>
 </p>
 <table class="table">
@@ -43,7 +39,7 @@
                 <td>
                     @foreach (Tag tag in item.Tags)
                     {
-                        <button type="button" value="@tag.Id" class="btn btn-secondary tag-button tag-@tag.Id">
+                        <button type="button" value="@tag.Id" class="btn btn-outline-secondary tag-button tag-@tag.Id">
                             @tag.Name
                         </button>
                     }
