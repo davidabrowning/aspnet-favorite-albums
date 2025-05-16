@@ -52,6 +52,21 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script>
+        $(".tag-reset-button").click(function() {
+            $(".album-row").removeClass("d-none");
+        });
+        $(".tag-button").click(function () {
+            $(".album-row").removeClass("d-none");
+            let tagId = $(this).val();
+            $(".album-row").each(function() {
+                let $row = $(this);
+                if ($row.find(".tag-" + tagId).length == 0) {
+                    $row.addClass("d-none");
+                }
+            });
+        });
+    </script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
