@@ -5,16 +5,16 @@
 }
 
 <p>
-	<button type="button" class="btn btn-primary tag-reset-button">
+	<button type="button" class="btn btn-success tag-reset-button">
 		All
 	</button>
 	@foreach (Tag tag in Model.Tags)
 	{
-		<button type="button" value="@tag.Id" class="btn btn-primary tag-button tag-@tag.Id">
+		<button type="button" value="@tag.Id" class="btn btn-success tag-button tag-@tag.Id">
 			@tag.Name
 		</button>
 	}
-	<a class="btn btn-secondary" asp-controller="Tag" asp-action="Index">Edit</a>
+	<a class="btn btn-outline-success" asp-controller="Tag" asp-action="Index">Edit tags</a>
 </p>
 <table class="table">
 	<thead>
@@ -39,7 +39,7 @@
 				<td>
 					@foreach (Tag tag in album.Tags)
 					{
-						<button type="button" value="@tag.Id" class="btn btn-outline-secondary tag-button tag-@tag.Id">
+						<button type="button" value="@tag.Id" class="btn btn-outline-success tag-button tag-@tag.Id">
 							@tag.Name
 						</button>
 					}
