@@ -1,50 +1,55 @@
 ﻿@model ASPNETFavoriteAlbums.ViewModels.AlbumIndexViewModel
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Index";
 }
 
 <p>
-    <a class="btn btn-primary" asp-action="Create">Add new album</a>
-    @foreach (Tag tag in Model.Tags)
-    {
-        <button type="button" value="@tag.Id" class="btn btn-secondary tag-button tag-@tag.Id">
-            @tag.Name
-        </button>
-    }
-    <button type="button" class="btn btn-secondary tag-reset-button">
-        Show all
-    </button>
-    <a class="btn btn-secondary" asp-controller="Tag" asp-action="Index">Edit tags</a>
+	<button type="button" class="btn btn-primary tag-reset-button">
+		All
+	</button>
+	@foreach (Tag tag in Model.Tags)
+	{
+		<button type="button" value="@tag.Id" class="btn btn-primary tag-button tag-@tag.Id">
+			@tag.Name
+		</button>
+	}
+	<a class="btn btn-secondary" asp-controller="Tag" asp-action="Index">Edit</a>
 </p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                Name
-            </th>
-            <th>
-                Tags
-            </th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.Albums) {
-            <tr class="album-row">
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </a>
-                </td>
-                <td>
-                    @foreach (Tag tag in item.Tags)
-                    {
-                        <button type="button" value="@tag.Id" class="btn btn-outline-secondary tag-button tag-@tag.Id">
-                            @tag.Name
-                        </button>
-                    }
-            </td>
-        </tr>
-}
-    </tbody>
+	<thead>
+		<tr>
+			<th>
+				Name
+			</th>
+			<th>
+				Tags
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.Albums)
+		{
+			<tr class="album-row">
+				<td>
+					<a asp-action="Edit" asp-route-id="@item.Id">
+						@Html.DisplayFor(modelItem => item.Name)
+					</a>
+				</td>
+				<td>
+					@foreach (Tag tag in item.Tags)
+					{
+						<button type="button" value="@tag.Id" class="btn btn-outline-secondary tag-button tag-@tag.Id">
+							@tag.Name
+						</button>
+					}
+				</td>
+			</tr>
+		}
+		<tr>
+			<td colspan="2">
+				<a class="btn btn-primary" asp-action="Create">Add new album</a>
+			</td>
+		</tr>
+	</tbody>
 </table>
