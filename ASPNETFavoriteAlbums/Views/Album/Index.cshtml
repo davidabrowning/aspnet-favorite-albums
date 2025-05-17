@@ -28,16 +28,16 @@
 		</tr>
 	</thead>
 	<tbody>
-		@foreach (var item in Model.Albums)
+		@foreach (Album album in Model.Albums)
 		{
 			<tr class="album-row">
 				<td>
-					<a asp-action="Edit" asp-route-id="@item.Id">
-						@Html.DisplayFor(modelItem => item.Name)
+					<a asp-action="Edit" asp-route-id="@album.Id" class="btn btn-outline-primary">
+						@album.Name (@album.Artist)
 					</a>
 				</td>
 				<td>
-					@foreach (Tag tag in item.Tags)
+					@foreach (Tag tag in album.Tags)
 					{
 						<button type="button" value="@tag.Id" class="btn btn-outline-secondary tag-button tag-@tag.Id">
 							@tag.Name

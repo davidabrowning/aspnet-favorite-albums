@@ -80,6 +80,7 @@ namespace ASPNETFavoriteAlbums.Controllers
                     Album formAlbum = albumEditViewModel.Album;
                     Album album = _albumRepository.GetById(formAlbum.Id);
                     album.Name = formAlbum.Name;
+                    album.Artist = formAlbum.Artist;
                     IEnumerable<Tag> allTags = _tagRepository.GetAll().ToList();
                     IEnumerable<int> selectedTagIds = albumEditViewModel.SelectedTagIds.ToList();
                     IEnumerable<Tag> selectedTags = allTags.Where(t => selectedTagIds.Contains(t.Id)).ToList();
