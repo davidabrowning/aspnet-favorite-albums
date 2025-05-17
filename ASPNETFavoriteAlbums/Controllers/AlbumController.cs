@@ -35,18 +35,26 @@ namespace ASPNETFavoriteAlbums.Controllers
         // GET: AlbumController/Create
         public ActionResult Create()
         {
-            return View();
+            AlbumCreateViewModel albumCreateViewModel = new()
+            {
+                AllTags = _tagRepository.GetAll()
+            };
+            return View(albumCreateViewModel);
         }
 
         // POST: AlbumController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Album album)
+        public ActionResult Create(AlbumCreateViewModel albumCreateViewModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    Album album = albumCreateViewModel.Album;
+                    IEnumerable<int> selectedTagIds = albumCreateViewModel.SelectedTagIds;
+                    List<Tag> selectedTags = _tagRepository.GetAll().Where(t => selectedTagIds.Contains(t.Id)).ToList();
+                    album.Tags = selectedTags;
                     _albumRepository.Add(album);
                 }
                 return RedirectToAction(nameof(Index));

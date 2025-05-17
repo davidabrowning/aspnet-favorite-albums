@@ -1,4 +1,4 @@
-﻿@model ASPNETFavoriteAlbums.Models.Album
+﻿@model ASPNETFavoriteAlbums.ViewModels.AlbumCreateViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -13,15 +13,24 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <label asp-for="Album.Name" class="control-label"></label>
+                <input asp-for="Album.Name" class="form-control" />
+                <span asp-validation-for="Album.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Artist" class="control-label"></label>
-                <input asp-for="Artist" class="form-control" />
-                <span asp-validation-for="Artist" class="text-danger"></span>
+                <label asp-for="Album.Artist" class="control-label"></label>
+                <input asp-for="Album.Artist" class="form-control" />
+                <span asp-validation-for="Album.Artist" class="text-danger"></span>
             </div>
+            @foreach (Tag tag in Model.AllTags)
+            {
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="SelectedTagIds" value="@tag.Id" id="@($"tag{tag.Id}")">
+                    <label class="form-check-label" for="@($"tag{tag.Id}")">
+                        @tag.Name
+                    </label>
+                </div>
+            }
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
             </div>
