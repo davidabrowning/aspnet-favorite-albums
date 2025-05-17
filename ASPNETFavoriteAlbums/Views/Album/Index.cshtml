@@ -17,7 +17,7 @@
 	<a class="btn btn-outline-success" asp-controller="Tag" asp-action="Index">Edit tags</a>
 </p>
 
-@foreach (Album album in Model.Albums)
+@foreach (Album album in Model.Albums.OrderBy(a => Guid.NewGuid()))
 {
 	<a class="album-row" asp-action="Edit" asp-route-id="@album.Id" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="
 		@album.Name<br>

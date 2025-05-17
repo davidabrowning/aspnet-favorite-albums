@@ -24,7 +24,7 @@ namespace ASPNETFavoriteAlbums.Data
 
         public IEnumerable<Tag> GetAll()
         {
-            return _favoriteAlbumsDbContext.Tags;
+            return _favoriteAlbumsDbContext.Tags.OrderBy(t => t.Name);
         }
 
         public Tag GetById(int id)
