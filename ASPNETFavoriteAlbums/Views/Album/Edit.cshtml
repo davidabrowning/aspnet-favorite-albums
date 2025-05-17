@@ -18,6 +18,11 @@
 				<input asp-for="Album.Name" class="form-control" />
 				<span asp-validation-for="Album.Name" class="text-danger"></span>
 			</div>
+			<div class="form-group">
+				<label asp-for="Album.Artist" class="control-label"></label>
+				<input asp-for="Album.Artist" class="form-control" />
+				<span asp-validation-for="Album.Artist" class="text-danger"></span>
+			</div>
 			@foreach (Tag tag in Model.AllTags)
 			{
 				<div class="form-check">

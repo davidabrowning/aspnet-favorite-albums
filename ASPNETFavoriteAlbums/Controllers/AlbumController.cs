@@ -35,18 +35,26 @@ namespace ASPNETFavoriteAlbums.Controllers
         // GET: AlbumController/Create
         public ActionResult Create()
         {
-            return View();
+            AlbumCreateViewModel albumCreateViewModel = new()
+            {
+                AllTags = _tagRepository.GetAll()
+            };
+            return View(albumCreateViewModel);
         }
 
         // POST: AlbumController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Album album)
+        public ActionResult Create(AlbumCreateViewModel albumCreateViewModel)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
+                    Album album = albumCreateViewModel.Album;
+                    IEnumerable<int> selectedTagIds = albumCreateViewModel.SelectedTagIds;
+                    List<Tag> selectedTags = _tagRepository.GetAll().Where(t => selectedTagIds.Contains(t.Id)).ToList();
+                    album.Tags = selectedTags;
                     _albumRepository.Add(album);
                 }
                 return RedirectToAction(nameof(Index));
@@ -80,6 +88,7 @@ namespace ASPNETFavoriteAlbums.Controllers
                     Album formAlbum = albumEditViewModel.Album;
                     Album album = _albumRepository.GetById(formAlbum.Id);
                     album.Name = formAlbum.Name;
+                    album.Artist = formAlbum.Artist;
                     IEnumerable<Tag> allTags = _tagRepository.GetAll().ToList();
                     IEnumerable<int> selectedTagIds = albumEditViewModel.SelectedTagIds.ToList();
                     IEnumerable<Tag> selectedTags = allTags.Where(t => selectedTagIds.Contains(t.Id)).ToList();
