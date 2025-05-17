@@ -14,14 +14,19 @@
 			<div asp-validation-summary="ModelOnly" class="text-danger"></div>
 			<input type="hidden" asp-for="Album.Id" />
 			<div class="form-group">
-				<label asp-for="Album.Name" class="control-label"></label>
+				<label asp-for="Album.Name" class="control-label">Album title</label>
 				<input asp-for="Album.Name" class="form-control" />
 				<span asp-validation-for="Album.Name" class="text-danger"></span>
 			</div>
 			<div class="form-group">
-				<label asp-for="Album.Artist" class="control-label"></label>
+				<label asp-for="Album.Artist" class="control-label">Artist</label>
 				<input asp-for="Album.Artist" class="form-control" />
 				<span asp-validation-for="Album.Artist" class="text-danger"></span>
+			</div>
+			<div class="form-group">
+				<label asp-for="Album.AlbumImageURL" class="control-label">Album cover art URL</label>
+				<input asp-for="Album.AlbumImageURL" class="form-control" />
+				<span asp-validation-for="Album.AlbumImageURL" class="text-danger"></span>
 			</div>
 			@foreach (Tag tag in Model.AllTags)
 			{

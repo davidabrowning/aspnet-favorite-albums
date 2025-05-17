@@ -5,51 +5,33 @@
 }
 
 <p>
-	<button type="button" class="btn btn-primary tag-reset-button">
+	<button type="button" class="btn btn-success tag-reset-button">
 		All
 	</button>
 	@foreach (Tag tag in Model.Tags)
 	{
-		<button type="button" value="@tag.Id" class="btn btn-primary tag-button tag-@tag.Id">
+		<button type="button" value="@tag.Id" class="btn btn-success tag-button tag-@tag.Id">
 			@tag.Name
 		</button>
 	}
-	<a class="btn btn-secondary" asp-controller="Tag" asp-action="Index">Edit</a>
+	<a class="btn btn-outline-success" asp-controller="Tag" asp-action="Index">Edit tags</a>
 </p>
-<table class="table">
-	<thead>
-		<tr>
-			<th>
-				Name
-			</th>
-			<th>
-				Tags
-			</th>
-		</tr>
-	</thead>
-	<tbody>
-		@foreach (Album album in Model.Albums)
-		{
-			<tr class="album-row">
-				<td>
-					<a asp-action="Edit" asp-route-id="@album.Id" class="btn btn-outline-primary">
-						@album.Name (@album.Artist)
-					</a>
-				</td>
-				<td>
-					@foreach (Tag tag in album.Tags)
-					{
-						<button type="button" value="@tag.Id" class="btn btn-outline-secondary tag-button tag-@tag.Id">
-							@tag.Name
-						</button>
-					}
-				</td>
-			</tr>
+
+@foreach (Album album in Model.Albums)
+{
+	<a class="album-row" asp-action="Edit" asp-route-id="@album.Id" data-bs-toggle="tooltip" data-bs-html="true" data-bs-title="
+		@album.Name<br>
+		@album.Artist<br><br>
+		Tags:<br>
+		@foreach (Tag tag in album.Tags) {
+			@tag.Name<br>
 		}
-		<tr>
-			<td colspan="2">
-				<a class="btn btn-primary" asp-action="Create">Add new album</a>
-			</td>
-		</tr>
-	</tbody>
-</table>
+	" data-bs-placement="top">
+		@foreach (Tag tag in album.Tags)
+		{
+			<div class="d-none tag-@tag.Id"></div>
+		}
+		<img src="@album.AlbumImageURL" class="img-thumbnail album-thumbnail" alt="">
+	</a>
+}
+<a class="btn btn-primary" asp-action="Create">Add new album</a>

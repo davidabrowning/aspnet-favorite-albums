@@ -4,6 +4,7 @@
 // Write your JavaScript code.
 
 addListeners();
+enableToolTips();
 
 function addListeners() {
     addResetTagListener();
@@ -39,4 +40,9 @@ function hideAlbumRowsWithoutTagId(tagId) {
 
 function rowDoesNotContainTagId(row, tagId) {
     return row.find(".tag-" + tagId).length == 0;
+}
+
+function enableToolTips() {
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl, { html: true }))
 }
